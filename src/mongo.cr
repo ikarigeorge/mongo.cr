@@ -4,7 +4,7 @@ require "./mongo/*"
 require "./mongo/gridfs/*"
 
 module Mongo
-  @@logger = Logger.new(STDIN)
+  @@logger = Logger.new(STDOUT)
 
   def self.logger
     @@logger
