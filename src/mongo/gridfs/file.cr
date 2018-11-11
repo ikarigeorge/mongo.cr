@@ -1,5 +1,6 @@
-class Mongo::GridFS::File
-  include IO
+class Mongo::GridFS::File < IO
+  #include IO
+  # breaking change moved IO from module to class in release 0.24.1
 
   property! timeout_msec
 
@@ -88,7 +89,7 @@ class Mongo::GridFS::File
     epoch = LibMongoC.gridfs_file_get_upload_date(self)
     spec = LibC::Timespec.new
     spec.tv_sec = epoch / 1000
-    Time.new(spec, Time::Kind::Utc)
+    Time.new(spec, Time::Location::UTC)
   end
 
   # Removes file and its data chunks from the MongoDB server.
@@ -172,4 +173,3 @@ class Mongo::GridFS::File
     @handle
   end
 end
-
